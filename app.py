@@ -1,19 +1,20 @@
 import streamlit as st
-from groq import Groq
+from llama_inference import LLMInference
 from dotenv import load_dotenv
 import os
 
 # Load environment variables
 load_dotenv()
 
-# Initialize the Groq client
-groq_token = os.getenv('GROQ_API_TOKEN')
-if not groq_token:
-    st.error("Groq API token not found. Please set the GROQ_API_TOKEN in your .env file.")
+# Initialize the LLaMA model
+llama_token = os.getenv('LLAMA_API_TOKEN')
+if not llama_token:
+    st.error("LLaMA API token not found. Please set the LLAMA_API_TOKEN in your .env file.")
     st.stop()
 
-groq_client = Groq(
-    api_key=groq_token,
+llm = LLMInference(
+    model_name="llama-3.1-70b-versatile",
+    api_key=llama_token
 )
 
 # Streamlit UI configuration
@@ -23,13 +24,13 @@ st.header("Chat with the LLaMA 3.1 70B Model")
 
 def get_model_response(prompt):
     try:
-        response = groq_client.query(
-            query=f"{{llama3 = $llama3, result: llama3(prompt='{prompt}', max_tokens=256, temperature=0.7, top_p=0.95)}}",
-            variables={
-                "llama3": "llama-3.1-70b-versatile"
-            }
+        response = llm.generate_text(
+            prompt=prompt,
+            max_length=256,
+            temperature=0.7,
+            top_p=0.95
         )
-        return response['result'].strip()
+        return response.strip()
     except Exception as e:
         st.error(f"Error in generating response: {e}")
         return "Sorry, I couldn't process your request."
