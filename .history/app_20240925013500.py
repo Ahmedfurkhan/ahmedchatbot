@@ -18,7 +18,7 @@ groq_client = Groq(
 
 # Streamlit UI configuration
 st.set_page_config(page_title="Ahmed Chatbot")
-st.markdown("<h1 style='text-align: center;'>Ahmedus</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Ahmed</h1>", unsafe_allow_html=True)
 st.header("Ask Me Anything")
 
 # Initialize chat history in session state

@@ -18,7 +18,7 @@ groq_client = Groq(
 
 # Streamlit UI configuration
 st.set_page_config(page_title="Ahmed Chatbot")
-st.markdown("<h1 style='text-align: center;'>Ahmedus</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Ahmed Chatbot</h1>", unsafe_allow_html=True)
 st.header("Ask Me Anything")
 
 # Initialize chat history in session state
@@ -26,12 +26,7 @@ if 'messages' not in st.session_state:
     st.session_state.messages = [
         {
             "role": "system",
-            "content": (
-                "Hello, I am *Ahmedus*, your AI assistant. I specialize in providing comprehensive support "
-                "across a wide range of technical domains, including software development, data science, and AI. "
-                "My goal is to assist you in tackling complex challenges efficiently, offering precise solutions, "
-                "and guiding you through technical queries with clarity and professionalism."
-            )
+            "content": "You are Ahmed Assistant, an AI assistant that helps with coding and answering questions on a variety of topics."
         }
     ]
 
