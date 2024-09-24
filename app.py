@@ -25,7 +25,7 @@ def get_model_response(question):
     prompt = f"Human: {question}\nAI: "
     try:
         response = groq_client.generate(
-            model="llama3-groq-70b-8192-tool-use-preview",
+            model="llama-3.1-70b-versatile",
             prompt=prompt,
             max_tokens=128,
             temperature=0.5
