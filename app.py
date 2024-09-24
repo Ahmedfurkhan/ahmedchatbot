@@ -1,20 +1,19 @@
 import streamlit as st
-from langchain.llms import HuggingFaceHub
+from groq import Groq
 from dotenv import load_dotenv
 import os
 
 # Load environment variables
 load_dotenv()
 
-# Initialize the Hugging Face model
-hf_token = os.getenv('HUGGINGFACEHUB_API_TOKEN')
-if not hf_token:
-    st.error("Hugging Face API token not found. Please set the HUGGINGFACEHUB_API_TOKEN in your .env file.")
+# Initialize the Groq client
+groq_token = os.getenv('GROQ_API_TOKEN')
+if not groq_token:
+    st.error("Groq API token not found. Please set the GROQ_API_TOKEN in your .env file.")
     st.stop()
 
-llm = HuggingFaceHub(
-    repo_id="tiiuae/falcon-7b-instruct",
-    model_kwargs={"temperature": 0.5, "max_length": 128}
+groq_client = Groq(
+    api_key=groq_token,
 )
 
 # Streamlit UI configuration
@@ -25,7 +24,12 @@ st.header("Ask Me Anything!")
 def get_model_response(question):
     prompt = f"Human: {question}\nAI: "
     try:
-        response = llm(prompt)
+        response = groq_client.generate(
+            model="llama3-groq-70b-8192-tool-use-preview",
+            prompt=prompt,
+            max_tokens=128,
+            temperature=0.5
+        )
         return response.strip()
     except Exception as e:
         st.error(f"Error in generating response: {e}")
