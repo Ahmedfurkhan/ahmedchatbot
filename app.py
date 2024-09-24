@@ -24,13 +24,13 @@ st.header("Ask Me Anything!")
 def get_model_response(question):
     prompt = f"Human: {question}\nAI: "
     try:
-        response = groq_client.generate(
-            model="llama-3.1-70b-versatile",
-            prompt=prompt,
-            max_tokens=128,
-            temperature=0.5
+        response = groq_client.query(
+            query=f"{{llama3 = $llama3, result: llama3(prompt='{prompt}', max_tokens=128, temperature=0.5)}}",
+            variables={
+                "llama3": "llama3-groq-70b-8192-tool-use-preview"
+            }
         )
-        return response.strip()
+        return response['result'].strip()
     except Exception as e:
         st.error(f"Error in generating response: {e}")
         return "Sorry, I couldn't process your request."
