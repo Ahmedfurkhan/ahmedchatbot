@@ -1,3 +1,4 @@
+groq
 langchain
 langchain_community
 openai
