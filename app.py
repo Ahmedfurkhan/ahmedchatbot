@@ -12,9 +12,7 @@ if not groq_token:
     st.error("Groq API token not found. Please set the GROQ_API_TOKEN in your .env file.")
     st.stop()
 
-groq_client = Groq(
-    api_key=groq_token,
-)
+groq_client = Groq(api_key=groq_token)
 
 # Streamlit UI configuration
 st.set_page_config(page_title="Ahmed Chatbot")
@@ -50,7 +48,7 @@ if user_input:
     # Get bot response using Groq API
     chat_completion = groq_client.chat.completions.create(
         messages=st.session_state.messages,
-        model="deepseek-r1-distill-llama-70b",  # Model used for chat completion, can be changed if needed
+        model="deepseek-r1-distill-llama-70b",
     )
 
     result = chat_completion.choices[0].message.content
