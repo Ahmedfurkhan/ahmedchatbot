@@ -50,7 +50,7 @@ if user_input:
     # Get bot response using Groq API
     chat_completion = groq_client.chat.completions.create(
         messages=st.session_state.messages,
-        model="llama-3.3-70b-versatile",  # Model used for chat completion, can be changed if needed
+        model="deepseek-r1-distill-llama-70b",  # Model used for chat completion, can be changed if needed
     )
 
     result = chat_completion.choices[0].message.content
